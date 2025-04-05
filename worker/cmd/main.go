@@ -28,9 +28,19 @@ type workerConfig struct {
 
 func main() {
 	var appWorker worker
-	appWorker.id = rand.Int64()
+	appWorker.setup()
 
-	zapLogger := logger.InitLogger("../logs/worker_" + strconv.FormatInt(appWorker.id, 10) + ".log")
+	// TODO() lookup pool directories
+
+	// stop
+	// TODO() send stop signal to the manager
+
+}
+
+func (w *worker) setup() {
+	w.id = rand.Int64()
+
+	zapLogger := logger.InitLogger("../logs/worker_" + strconv.FormatInt(w.id, 10) + ".log")
 	typeMap, err := model.ParseFileTypesConfig("../common/file_types_config.json")
 	if err != nil {
 		zapLogger.Panic("Type map panic", zap.Error(err))
@@ -46,15 +56,9 @@ func main() {
 		resultPoolEndpoint:    "/results-pool",
 	}
 
-	appWorker.logger = zapLogger
-	appWorker.typeMap = typeMap
-	appWorker.fileRepo = fileRepo
-	appWorker.requestMatcher = requestMatcher
-	appWorker.config = workerConfig
-
-	// TODO() lookup pool directories
-
-	// stop
-	// TODO() send stop signal to the manager
-
+	w.logger = zapLogger
+	w.typeMap = typeMap
+	w.fileRepo = fileRepo
+	w.requestMatcher = requestMatcher
+	w.config = workerConfig
 }

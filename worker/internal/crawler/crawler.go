@@ -20,8 +20,9 @@ type crawler struct {
 	logger   *zap.Logger
 }
 
-func New(fileRepo repo.FileRepo, logger *zap.Logger) Crawler {
+func New(id int64, fileRepo repo.FileRepo, logger *zap.Logger) Crawler {
 	return &crawler{
+		id:       id,
 		fileRepo: fileRepo,
 		logger:   logger,
 	}
@@ -41,7 +42,7 @@ func (c *crawler) crawl(ctx context.Context, path string) {
 		c.logger.Info("Crawler stopped before going further", zap.String("path", path))
 		return
 	default:
-		var directories []string = make([]string, 0)
+		var directories = make([]string, 0)
 
 		entries, err := os.ReadDir(path)
 
@@ -49,7 +50,8 @@ func (c *crawler) crawl(ctx context.Context, path string) {
 			c.logger.Error(
 				"Error reading directory for further traversing",
 				zap.String("path", path),
-				zap.Error(err))
+				zap.Error(err),
+				zap.Int64("worker_id", c.id))
 
 			return
 		}
@@ -59,7 +61,10 @@ func (c *crawler) crawl(ctx context.Context, path string) {
 			entryPath := filepath.Join(path, entry.Name())
 			fileMetadata, err := c.fileRepo.Read(entryPath)
 			if err != nil {
-				c.logger.Info("Error reading file or dir", zap.String("path", path), zap.Error(err))
+				c.logger.Info("Error reading file or dir",
+					zap.String("path", path),
+					zap.Error(err),
+					zap.Int64("worker_id", c.id))
 				return
 			}
 

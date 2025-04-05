@@ -75,7 +75,7 @@ func (w *worker) setup() {
 		DirectoryPoolEndpoint: w.config.managerURL + w.config.directoryPoolEndpoint,
 		ResultsPoolEndpoint:   w.config.managerURL + w.config.resultPoolEndpoint,
 	}
-	directoryCrawler := crawler.New(w.id, fileRepo, requestMatcher, zapLogger, crawlerConfig)
+	directoryCrawler := crawler.New(w.id, fileRepo, requestMatcher, zapLogger, crawlerConfig, typeMap)
 
 	w.logger = zapLogger
 	w.typeMap = typeMap

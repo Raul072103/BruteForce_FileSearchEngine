@@ -9,5 +9,4 @@ func main() {
 	// TODO() create the endpoints for start, stop, directory-pool, results-pool, get-results
 
 	// TODO() create the process of creating other workers
-
 }

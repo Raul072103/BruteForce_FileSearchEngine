@@ -13,7 +13,7 @@ func (w *worker) requestDirectoryPool() (model.DirectoryResponse, error) {
 	var dirResp model.DirectoryResponse
 	url := w.config.managerURL + w.config.directoryPoolEndpoint
 
-	client := &http.Client{Timeout: 5 * time.Second}
+	client := &http.Client{Timeout: 30 * time.Second}
 
 	resp, err := client.Get(url)
 	if err != nil {

@@ -6,10 +6,15 @@ import (
 	"BruteForce_SearchEnginer/worker/internal/crawler"
 	"BruteForce_SearchEnginer/worker/internal/matcher"
 	"BruteForce_SearchEnginer/worker/internal/repo"
+	"bytes"
 	"context"
+	"encoding/json"
+	"fmt"
 	"go.uber.org/zap"
 	"math/rand/v2"
+	"net/http"
 	"strconv"
+	"time"
 )
 
 type worker struct {
@@ -24,6 +29,7 @@ type worker struct {
 
 type workerConfig struct {
 	managerURL            string
+	workerStartEndpoint   string
 	workerStopEndpoint    string
 	directoryPoolEndpoint string
 	resultPoolEndpoint    string
@@ -33,6 +39,16 @@ func main() {
 	var appWorker worker
 	appWorker.setup()
 
+	// send start signal to manager
+	err := appWorker.sendStartSignal()
+	err = appWorker.sendStopSignal()
+	if err != nil {
+		appWorker.logger.Error("error sending stop signal to manager",
+			zap.Error(err), zap.Int64("worker_id", appWorker.id))
+		return
+	}
+
+	// get file search request from directory pool
 	dirResponse, err := appWorker.requestDirectoryPool()
 	if err != nil {
 		appWorker.logger.Panic("Failed to request directory pool",
@@ -47,7 +63,13 @@ func main() {
 	searchRequest := model.ConvertNetworkSearchRequest(dirResponse.SearchRequest)
 	appWorker.crawler.Run(ctx, dirResponse.Path, searchRequest)
 
-	// TODO() send stop signal to the manager
+	// send stop signal to the manager
+	err = appWorker.sendStopSignal()
+	if err != nil {
+		appWorker.logger.Error("error sending stop signal to manager",
+			zap.Error(err), zap.Int64("worker_id", appWorker.id))
+		return
+	}
 
 	// stop
 	appWorker.logger.Info("worker finished", zap.Int64("worker_id", appWorker.id))
@@ -58,6 +80,7 @@ func (w *worker) setup() {
 	w.config = workerConfig{
 		managerURL:            "http://127.0.0.1",
 		workerStopEndpoint:    "/stop",
+		workerStartEndpoint:   "/start",
 		directoryPoolEndpoint: "/directory-pool",
 		resultPoolEndpoint:    "/results-pool",
 	}
@@ -82,4 +105,56 @@ func (w *worker) setup() {
 	w.fileRepo = fileRepo
 	w.requestMatcher = requestMatcher
 	w.crawler = directoryCrawler
+}
+
+// sendStopSignal sends a stop signal to the manager when the worker finishes its task
+func (w *worker) sendStopSignal() error {
+	payload := map[string]any{
+		"worker_id": w.id,
+	}
+	jsonData, err := json.Marshal(payload)
+	if err != nil {
+		return err
+	}
+
+	client := &http.Client{Timeout: 5 * time.Second}
+
+	stopURL := w.config.managerURL + w.config.workerStopEndpoint
+	resp, err := client.Post(stopURL, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to send stop signal, status code: %d", resp.StatusCode)
+	}
+
+	return nil
+}
+
+// sendStartSignal notifies the manager that the worker has started
+func (w *worker) sendStartSignal() error {
+	payload := map[string]any{
+		"worker_id": w.id,
+	}
+	jsonData, err := json.Marshal(payload)
+	if err != nil {
+		return err
+	}
+
+	client := &http.Client{Timeout: 5 * time.Second}
+
+	startURL := w.config.managerURL + w.config.workerStartEndpoint
+	resp, err := client.Post(startURL, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to send start signal, status code: %d", resp.StatusCode)
+	}
+
+	return nil
 }

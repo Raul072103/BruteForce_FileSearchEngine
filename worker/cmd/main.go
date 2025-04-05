@@ -3,8 +3,10 @@ package main
 import (
 	"BruteForce_SearchEnginer/common/logger"
 	"BruteForce_SearchEnginer/common/model"
+	"BruteForce_SearchEnginer/worker/internal/crawler"
 	"BruteForce_SearchEnginer/worker/internal/matcher"
 	"BruteForce_SearchEnginer/worker/internal/repo"
+	"context"
 	"go.uber.org/zap"
 	"math/rand/v2"
 	"strconv"
@@ -16,6 +18,7 @@ type worker struct {
 	fileRepo       repo.FileRepo
 	requestMatcher matcher.RequestMatcher
 	typeMap        model.FileTypesConfig
+	crawler        crawler.Crawler
 	config         workerConfig
 }
 
@@ -31,16 +34,24 @@ func main() {
 	appWorker.setup()
 
 	// TODO() lookup pool directories
-	directory, err := appWorker.requestDirectoryPool()
+	dirResponse, err := appWorker.requestDirectoryPool()
 	if err != nil {
 		appWorker.logger.Panic("Failed to request directory pool",
 			zap.Error(err),
 			zap.Int64("worker_id", appWorker.id))
 	}
 
-	// stop
+	// start crawler
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	searchRequest := model.ConvertNetworkSearchRequest(dirResponse.SearchRequest)
+	appWorker.crawler.Run(ctx, dirResponse.Path, searchRequest)
+
 	// TODO() send stop signal to the manager
 
+	// stop
+	appWorker.logger.Info("worker finished", zap.Int64("worker_id", appWorker.id))
 }
 
 func (w *worker) setup() {
@@ -54,6 +65,7 @@ func (w *worker) setup() {
 	}
 	fileRepo := repo.New(typeMap)
 	requestMatcher := matcher.New(typeMap)
+	directoryCrawler := crawler.New(w.id, fileRepo, requestMatcher, zapLogger)
 
 	workerConfig := workerConfig{
 		managerURL:            "http://127.0.0.1",
@@ -66,5 +78,6 @@ func (w *worker) setup() {
 	w.typeMap = typeMap
 	w.fileRepo = fileRepo
 	w.requestMatcher = requestMatcher
+	w.crawler = directoryCrawler
 	w.config = workerConfig
 }

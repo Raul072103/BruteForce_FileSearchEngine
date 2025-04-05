@@ -41,34 +41,45 @@ func (c *crawler) crawl(ctx context.Context, path string) {
 		c.logger.Info("Crawler stopped before going further", zap.String("path", path))
 		return
 	default:
-		fileModel, err := c.fileRepo.Read(path)
+		var directories []string = make([]string, 0)
+
+		entries, err := os.ReadDir(path)
+
 		if err != nil {
-			c.logger.Info("Error reading file or dir", zap.String("path", path), zap.Error(err))
+			c.logger.Error(
+				"Error reading directory for further traversing",
+				zap.String("path", path),
+				zap.Error(err))
+
 			return
 		}
 
-		if fileModel.Extension == "" {
-			entries, err := os.ReadDir(path)
+		// Look for the results in each file
+		for _, entry := range entries {
+			entryPath := filepath.Join(path, entry.Name())
+			fileMetadata, err := c.fileRepo.Read(entryPath)
 			if err != nil {
-				c.logger.Error(
-					"Error reading directory for further traversing",
-					zap.String("path", path),
-					zap.Error(err))
-
+				c.logger.Info("Error reading file or dir", zap.String("path", path), zap.Error(err))
 				return
 			}
 
-			// Recur for each entry
-			for i, entry := range entries {
-				entryPath := filepath.Join(path, entry.Name())
-				// send every one of the directory to the pool of directories
-				if i < len(entries)-1 {
+			if fileMetadata.Extension == "" {
+				directories = append(directories, entryPath)
+			} else {
+				// TODO() look for results in this file
+			}
 
-				} else {
-					// go further the last one
-					c.crawl(ctx, entryPath)
-				}
+		}
+
+		// Send every directory path back to the directories pool, besides the last one
+		for i, dir := range directories {
+			if i < len(entries)-1 {
+				// TODO() send every one of the directory to the pool of directories
+			} else {
+				// go further the last one
+				c.crawl(ctx, dir)
 			}
 		}
+
 	}
 }

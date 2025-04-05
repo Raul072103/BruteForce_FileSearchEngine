@@ -10,7 +10,7 @@ type FileMetadata struct {
 }
 
 // ConvertToResponse converts FileMetadata into FileSearchResponse with a given preview
-func ConvertToResponse(fm FileMetadata, preview string) FileSearchResponse {
+func ConvertToResponse(fm *FileMetadata, preview string) FileSearchResponse {
 	return FileSearchResponse{
 		Path:      fm.Path,
 		Name:      fm.Name,

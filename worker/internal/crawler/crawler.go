@@ -27,6 +27,7 @@ type crawler struct {
 	requestMatcher matcher.RequestMatcher
 	config         Config
 	logger         *zap.Logger
+	typeMap        model.FileTypesConfig
 }
 
 type Config struct {
@@ -39,13 +40,15 @@ func New(
 	fileRepo repo.FileRepo,
 	requestMatcher matcher.RequestMatcher,
 	logger *zap.Logger,
-	config Config) Crawler {
+	config Config,
+	typeMap model.FileTypesConfig) Crawler {
 	return &crawler{
 		id:             id,
 		fileRepo:       fileRepo,
 		requestMatcher: requestMatcher,
 		config:         config,
 		logger:         logger,
+		typeMap:        typeMap,
 	}
 }
 
@@ -93,7 +96,26 @@ func (c *crawler) crawl(ctx context.Context, path string, request model.SearchRe
 			} else {
 				matchesRequest := c.requestMatcher.MatchFile(fileMetadata, request)
 				if matchesRequest {
-					// TODO() send the file to the results pool
+					go func() {
+						var fileSearchResponse model.FileSearchResponse
+
+						if c.typeMap.GetTypeByExtension(fileMetadata.Extension) == ".txt" {
+							textContent := string(fileMetadata.Content)
+							preview := textContent[:min(len(textContent), 200)]
+
+							fileSearchResponse = model.ConvertToResponse(fileMetadata, preview)
+						} else {
+							fileSearchResponse = model.ConvertToResponse(fileMetadata, "")
+						}
+
+						err := c.sendFileToResultsPool(fileSearchResponse)
+						if err != nil {
+							c.logger.Error(
+								"error sending result to the result pool",
+								zap.Error(err),
+								zap.Int64("worker_id", c.id))
+						}
+					}()
 				}
 			}
 
@@ -102,14 +124,16 @@ func (c *crawler) crawl(ctx context.Context, path string, request model.SearchRe
 		// Send every directory path back to the directories pool, besides the last one
 		for i, dir := range directories {
 			if i < len(entries)-1 {
-				directoryNetworkResponse := model.DirectoryResponse{
-					Path:          dir,
-					SearchRequest: model.ConvertSearchRequest(request),
-				}
-				err := c.sendDirectoryToPool(directoryNetworkResponse)
-				if err != nil {
-					c.logger.Error("Error sending directory to directory pool", zap.Error(err), zap.Int64("worker_id", c.id))
-				}
+				go func() {
+					directoryNetworkResponse := model.DirectoryResponse{
+						Path:          dir,
+						SearchRequest: model.ConvertSearchRequest(request),
+					}
+					err := c.sendDirectoryToPool(directoryNetworkResponse)
+					if err != nil {
+						c.logger.Error("Error sending directory to directory pool", zap.Error(err), zap.Int64("worker_id", c.id))
+					}
+				}()
 			} else {
 				// go further the last one
 				c.crawl(ctx, dir, request)
@@ -136,6 +160,28 @@ func (c *crawler) sendDirectoryToPool(directoryNetworkResponse model.DirectoryRe
 
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("failed to send directory to pool, status code: %d", resp.StatusCode)
+	}
+
+	return nil
+}
+
+// sendFileToResultsPool sends a file search result to the results pool endpoint
+func (c *crawler) sendFileToResultsPool(fileSearchResponse model.FileSearchResponse) error {
+	jsonData, err := json.Marshal(fileSearchResponse)
+	if err != nil {
+		return err
+	}
+
+	client := &http.Client{Timeout: 5 * time.Second}
+
+	resp, err := client.Post(c.config.ResultsPoolEndpoint, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to send file to results pool, status code: %d", resp.StatusCode)
 	}
 
 	return nil

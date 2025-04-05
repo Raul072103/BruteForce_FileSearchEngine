@@ -6,7 +6,7 @@ import (
 )
 
 type RequestMatcher interface {
-	MatchFile(fileMetadata model.FileMetadata, request model.SearchRequest) bool
+	MatchFile(fileMetadata *model.FileMetadata, request model.SearchRequest) bool
 }
 
 type requestMatcher struct {
@@ -17,7 +17,7 @@ func New(typeMap model.FileTypesConfig) RequestMatcher {
 	return &requestMatcher{typeMap: typeMap}
 }
 
-func (r *requestMatcher) MatchFile(fileMetadata model.FileMetadata, request model.SearchRequest) bool {
+func (r *requestMatcher) MatchFile(fileMetadata *model.FileMetadata, request model.SearchRequest) bool {
 	var wordSearchRequest, fileTxtType bool
 
 	if len(request.Words) != 0 {

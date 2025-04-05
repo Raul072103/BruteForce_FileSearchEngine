@@ -1,6 +1,8 @@
 package crawler
 
 import (
+	"BruteForce_SearchEnginer/common/model"
+	"BruteForce_SearchEnginer/worker/internal/matcher"
 	"BruteForce_SearchEnginer/worker/internal/repo"
 	"context"
 	"go.uber.org/zap"
@@ -11,32 +13,34 @@ import (
 // Crawler is the basis for the component which crawls every file and directory starting from the root path.
 // Logs any errors happening throughout the process and jumps over files specified in the configuration.
 type Crawler interface {
-	Run(ctx context.Context, directoryPath string)
+	Run(ctx context.Context, directoryPath string, request model.SearchRequest)
 }
 
 type crawler struct {
-	id       int64
-	fileRepo repo.FileRepo
-	logger   *zap.Logger
+	id             int64
+	fileRepo       repo.FileRepo
+	requestMatcher matcher.RequestMatcher
+	logger         *zap.Logger
 }
 
-func New(id int64, fileRepo repo.FileRepo, logger *zap.Logger) Crawler {
+func New(id int64, fileRepo repo.FileRepo, requestMatcher matcher.RequestMatcher, logger *zap.Logger) Crawler {
 	return &crawler{
-		id:       id,
-		fileRepo: fileRepo,
-		logger:   logger,
+		id:             id,
+		fileRepo:       fileRepo,
+		requestMatcher: requestMatcher,
+		logger:         logger,
 	}
 }
 
-func (c *crawler) Run(ctx context.Context, directoryPath string) {
+func (c *crawler) Run(ctx context.Context, directoryPath string, request model.SearchRequest) {
 	c.logger.Info("Starting crawler", zap.String("root", directoryPath), zap.Int64("worker_id", c.id))
-	c.crawl(ctx, directoryPath)
+	c.crawl(ctx, directoryPath, request)
 	c.logger.Info("Crawler finished")
 }
 
 // crawl goes through the current folder in a DFS manner, every folder except the last one is sent back to the
 // pool of directories for the current worker or the others to take on when they have resources.
-func (c *crawler) crawl(ctx context.Context, path string) {
+func (c *crawler) crawl(ctx context.Context, path string, request model.SearchRequest) {
 	select {
 	case <-ctx.Done():
 		c.logger.Info("Crawler stopped before going further", zap.String("path", path))
@@ -71,7 +75,10 @@ func (c *crawler) crawl(ctx context.Context, path string) {
 			if fileMetadata.Extension == "" {
 				directories = append(directories, entryPath)
 			} else {
-				// TODO() look for results in this file
+				matchesRequest := c.requestMatcher.MatchFile(fileMetadata, request)
+				if matchesRequest {
+					// TODO() send the file to the results pool
+				}
 			}
 
 		}
@@ -82,7 +89,7 @@ func (c *crawler) crawl(ctx context.Context, path string) {
 				// TODO() send every one of the directory to the pool of directories
 			} else {
 				// go further the last one
-				c.crawl(ctx, dir)
+				c.crawl(ctx, dir, request)
 			}
 		}
 

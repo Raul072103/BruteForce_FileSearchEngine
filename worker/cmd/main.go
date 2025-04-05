@@ -33,7 +33,6 @@ func main() {
 	var appWorker worker
 	appWorker.setup()
 
-	// TODO() lookup pool directories
 	dirResponse, err := appWorker.requestDirectoryPool()
 	if err != nil {
 		appWorker.logger.Panic("Failed to request directory pool",
@@ -56,6 +55,12 @@ func main() {
 
 func (w *worker) setup() {
 	w.id = rand.Int64()
+	w.config = workerConfig{
+		managerURL:            "http://127.0.0.1",
+		workerStopEndpoint:    "/stop",
+		directoryPoolEndpoint: "/directory-pool",
+		resultPoolEndpoint:    "/results-pool",
+	}
 
 	zapLogger := logger.InitLogger("../logs/worker_" + strconv.FormatInt(w.id, 10) + ".log")
 	typeMap, err := model.ParseFileTypesConfig("../common/file_types_config.json")
@@ -65,19 +70,16 @@ func (w *worker) setup() {
 	}
 	fileRepo := repo.New(typeMap)
 	requestMatcher := matcher.New(typeMap)
-	directoryCrawler := crawler.New(w.id, fileRepo, requestMatcher, zapLogger)
 
-	workerConfig := workerConfig{
-		managerURL:            "http://127.0.0.1",
-		workerStopEndpoint:    "/stop",
-		directoryPoolEndpoint: "/directory-pool",
-		resultPoolEndpoint:    "/results-pool",
+	crawlerConfig := crawler.Config{
+		DirectoryPoolEndpoint: w.config.managerURL + w.config.directoryPoolEndpoint,
+		ResultsPoolEndpoint:   w.config.managerURL + w.config.resultPoolEndpoint,
 	}
+	directoryCrawler := crawler.New(w.id, fileRepo, requestMatcher, zapLogger, crawlerConfig)
 
 	w.logger = zapLogger
 	w.typeMap = typeMap
 	w.fileRepo = fileRepo
 	w.requestMatcher = requestMatcher
 	w.crawler = directoryCrawler
-	w.config = workerConfig
 }

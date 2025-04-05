@@ -8,14 +8,9 @@ import (
 	"time"
 )
 
-type DirectoryResponse struct {
-	Path          string                     `json:"path"`
-	SearchRequest model.NetworkSearchRequest `json:"search_request"`
-}
-
 // requestDirectoryPool queries the directory pool endpoint and returns the path if successful
-func (w *worker) requestDirectoryPool() (DirectoryResponse, error) {
-	var dirResp DirectoryResponse
+func (w *worker) requestDirectoryPool() (model.DirectoryResponse, error) {
+	var dirResp model.DirectoryResponse
 	url := w.config.managerURL + w.config.directoryPoolEndpoint
 
 	client := &http.Client{Timeout: 5 * time.Second}

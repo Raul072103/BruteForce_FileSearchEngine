@@ -8,3 +8,14 @@ type FileMetadata struct {
 	Preview   string `json:"preview"`
 	Content   []byte
 }
+
+// ConvertToResponse converts FileMetadata into FileSearchResponse with a given preview
+func ConvertToResponse(fm FileMetadata, preview string) FileSearchResponse {
+	return FileSearchResponse{
+		Path:      fm.Path,
+		Name:      fm.Name,
+		Size:      fm.Size,
+		Extension: fm.Extension,
+		Preview:   preview,
+	}
+}

@@ -31,6 +31,12 @@ func main() {
 	appWorker.setup()
 
 	// TODO() lookup pool directories
+	directory, err := appWorker.requestDirectoryPool()
+	if err != nil {
+		appWorker.logger.Panic("Failed to request directory pool",
+			zap.Error(err),
+			zap.Int64("worker_id", appWorker.id))
+	}
 
 	// stop
 	// TODO() send stop signal to the manager

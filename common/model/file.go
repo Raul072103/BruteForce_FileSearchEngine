@@ -1,11 +1,11 @@
 package model
 
 type FileMetadata struct {
-	Path      string `utils:"path"`
-	Name      string `utils:"name"`
-	Size      int64  `utils:"size"`
-	Extension string `utils:"extension"`
-	Preview   string `utils:"preview"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Size      int64  `json:"size"`
+	Extension string `json:"extension"`
+	Preview   string `json:"preview"`
 	Content   []byte
 }
 

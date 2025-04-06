@@ -6,8 +6,8 @@ import (
 )
 
 type FileTypesConfig struct {
-	TypesMapping      map[int32]string `utils:"types_mapping"`
-	ExtensionMappings map[string]int32 `utils:"extension_mappings"`
+	TypesMapping      map[int32]string `json:"types_mapping"`
+	ExtensionMappings map[string]int32 `json:"extension_mappings"`
 }
 
 func (cfg *FileTypesConfig) GetTypeByExtension(extension string) string {

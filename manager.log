@@ -1,0 +1,14 @@
+{"level":"INFO","ts":"2025-04-06T21:09:09.146+0300","caller":"api/api.go:83","msg":"Server has started","addr":":8080"}
+{"level":"WARN","ts":"2025-04-06T21:09:45.959+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
+{"level":"WARN","ts":"2025-04-06T21:10:52.951+0300","caller":"api/errors.go:20","msg":"not found response","method":"POST","path":"/v1/directory-pool","error":"json: unknown field \"search_request\""}
+{"level":"WARN","ts":"2025-04-06T21:11:59.809+0300","caller":"api/errors.go:20","msg":"not found response","method":"POST","path":"/v1/directory-pool","error":"json: unknown field \"search_request\""}
+{"level":"INFO","ts":"2025-04-06T21:12:07.418+0300","caller":"api/api.go:75","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T21:12:07.420+0300","caller":"api/api.go:95","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T21:12:07.420+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T21:12:09.845+0300","caller":"api/api.go:83","msg":"Server has started","addr":":8080"}
+{"level":"WARN","ts":"2025-04-06T21:12:14.374+0300","caller":"api/errors.go:20","msg":"not found response","method":"POST","path":"/v1/directory-pool","error":"json: unknown field \"search_request\""}
+{"level":"INFO","ts":"2025-04-06T21:12:51.119+0300","caller":"api/api.go:75","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T21:12:51.120+0300","caller":"api/api.go:95","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T21:12:51.121+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T21:12:53.143+0300","caller":"api/api.go:83","msg":"Server has started","addr":":8080"}
+{"level":"WARN","ts":"2025-04-06T21:13:10.212+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}

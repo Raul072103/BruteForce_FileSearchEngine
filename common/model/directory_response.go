@@ -1,6 +1,6 @@
 package model
 
 type DirectoryResponse struct {
-	Path          string               `utils:"path"`
-	SearchRequest NetworkSearchRequest `utils:"search_request"`
+	Path          string               `json:"path"`
+	SearchRequest NetworkSearchRequest `json:"search_request"`
 }

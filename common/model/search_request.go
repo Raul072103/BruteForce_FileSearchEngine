@@ -7,17 +7,17 @@ type SearchRequest struct {
 }
 
 type NetworkSearchRequest struct {
-	Words     []string `utils:"words"`
-	Extension []string `utils:"extension"`
-	Name      string   `utils:"name"`
+	Words     []string `json:"words"`
+	Extension []string `json:"extension"`
+	Name      string   `json:"name"`
 }
 
 type FileSearchResponse struct {
-	Path      string `utils:"path"`
-	Name      string `utils:"name"`
-	Size      int64  `utils:"size"`
-	Extension string `utils:"extension"`
-	Preview   string `utils:"preview"`
+	Path      string `json:"path"`
+	Name      string `json:"name"`
+	Size      int64  `json:"size"`
+	Extension string `json:"extension"`
+	Preview   string `json:"preview"`
 }
 
 // ConvertNetworkSearchRequest converts a NetworkSearchRequest to a SearchRequest

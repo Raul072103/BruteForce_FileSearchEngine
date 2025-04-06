@@ -8,5 +8,10 @@ need to take.
 
 ## Requirements
 
+Powershell command to visualise workers update:
+```
+Get-Content workers_progress.txt -Wait
+```
+
 ![Requirements image](./docs/requirements.png)
 

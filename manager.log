@@ -59,3 +59,47 @@
 {"level":"INFO","ts":"2025-04-06T22:13:30.556+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
 {"level":"INFO","ts":"2025-04-06T22:13:30.556+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
 {"level":"FATAL","ts":"2025-04-06T22:13:30.556+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T23:53:13.090+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T23:55:07.843+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T23:55:07.843+0300","caller":"api/api.go:106","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T23:55:27.355+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T23:55:52.131+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T23:55:52.131+0300","caller":"api/api.go:98","msg":"process manager started"}
+{"level":"INFO","ts":"2025-04-06T23:55:52.131+0300","caller":"api/api.go:107","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T23:56:23.696+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T23:56:23.696+0300","caller":"api/api.go:100","msg":"process manager started"}
+{"level":"INFO","ts":"2025-04-06T23:57:31.266+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T23:57:31.266+0300","caller":"api/api.go:100","msg":"process manager started"}
+{"level":"FATAL","ts":"2025-04-06T23:57:31.267+0300","caller":"api/main.go:46","msg":"server error","error":"listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:46\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T23:58:51.515+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T23:58:51.516+0300","caller":"api/api.go:100","msg":"process manager started"}
+{"level":"FATAL","ts":"2025-04-06T23:58:51.516+0300","caller":"api/main.go:46","msg":"server error","error":"listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:46\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-07T00:00:36.092+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:00:36.092+0300","caller":"api/api.go:100","msg":"process manager started"}
+{"level":"INFO","ts":"2025-04-07T00:01:49.637+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-07T00:01:49.637+0300","caller":"api/api.go:109","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:01:52.435+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:01:52.436+0300","caller":"api/api.go:101","msg":"process manager started"}
+{"level":"INFO","ts":"2025-04-07T00:05:48.086+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-07T00:05:48.086+0300","caller":"api/api.go:110","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:05:50.443+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:05:50.443+0300","caller":"api/api.go:101","msg":"process manager started"}
+{"level":"INFO","ts":"2025-04-07T00:09:39.745+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-07T00:09:39.745+0300","caller":"api/api.go:110","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:09:42.875+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:09:42.876+0300","caller":"api/api.go:101","msg":"Process manager started"}
+{"level":"INFO","ts":"2025-04-07T00:11:45.817+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-07T00:11:45.817+0300","caller":"api/api.go:110","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:12:18.708+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:12:18.708+0300","caller":"api/api.go:101","msg":"Process manager started"}
+{"level":"INFO","ts":"2025-04-07T00:12:53.319+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-07T00:12:53.319+0300","caller":"api/api.go:110","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:14:43.265+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:14:43.266+0300","caller":"api/api.go:101","msg":"Process manager started"}
+{"level":"INFO","ts":"2025-04-07T00:18:17.876+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-07T00:18:17.876+0300","caller":"api/api.go:110","msg":"server has stopped","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:19:55.483+0300","caller":"api/api.go:86","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-07T00:19:55.483+0300","caller":"api/api.go:101","msg":"Process manager started"}
+{"level":"ERROR","ts":"2025-04-07T00:20:13.251+0300","caller":"api/directory_pool.go:31","msg":"error sending ok response when empty directory pool","error":"http: request method or response status code does not allow body","stacktrace":"main.(*application).getDirectoryPoolHandler\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/directory_pool.go:31\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5.(*Mux).routeHTTP\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/mux.go:480\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5.(*Mux).ServeHTTP\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/mux.go:73\ngithub.com/go-chi/chi/v5.(*Mux).Mount.func1\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/mux.go:327\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5.(*Mux).routeHTTP\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/mux.go:480\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\nmain.(*application).mount.Timeout.func2.1\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/middleware/timeout.go:44\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5/middleware.Recoverer.func1\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/middleware/recoverer.go:45\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5/middleware.init.0.RequestLogger.func1.1\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/middleware/logger.go:55\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5/middleware.RealIP.func1\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/middleware/realip.go:36\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5/middleware.RequestID.func1\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/middleware/request_id.go:76\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/cors.(*Cors).Handler-fm.(*Cors).Handler.func1\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/cors@v1.2.1/cors.go:228\nnet/http.HandlerFunc.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:2220\ngithub.com/go-chi/chi/v5.(*Mux).ServeHTTP\n\tC:/Users/raula/go/pkg/mod/github.com/go-chi/chi/v5@v5.2.1/mux.go:90\nnet/http.serverHandler.ServeHTTP\n\tC:/Program Files/Go/src/net/http/server.go:3210\nnet/http.(*conn).serve\n\tC:/Program Files/Go/src/net/http/server.go:2092"}
+{"level":"INFO","ts":"2025-04-07T00:26:31.984+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-07T00:26:31.984+0300","caller":"api/api.go:110","msg":"server has stopped","addr":":8080"}

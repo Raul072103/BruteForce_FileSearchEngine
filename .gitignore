@@ -1,3 +1,6 @@
 manager.log
 worker_manger.log
 logs/
+process_manager.log
+worker_manger.log
+workers_progress.txt

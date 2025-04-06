@@ -45,9 +45,6 @@ func main() {
 	if err != nil {
 		app.logger.Fatal("server error", zap.Error(err))
 	}
-
-	// TODO() create the process of creating other workers
-
 }
 
 func setup() *application {

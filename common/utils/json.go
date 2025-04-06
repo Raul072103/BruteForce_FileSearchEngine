@@ -1,4 +1,4 @@
-package json
+package utils
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 )
 
 func WriteJSON(w http.ResponseWriter, status int, data any) error {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/utils")
 	w.WriteHeader(status)
 	return json.NewEncoder(w).Encode(data)
 }
@@ -23,7 +23,7 @@ func ReadJSON(w http.ResponseWriter, r *http.Request, data any) error {
 
 func WriteJSONError(w http.ResponseWriter, status int, message string) error {
 	type envelope struct {
-		Error string `json:"error"`
+		Error string `utils:"error"`
 	}
 
 	return WriteJSON(w, status, message)
@@ -31,7 +31,7 @@ func WriteJSONError(w http.ResponseWriter, status int, message string) error {
 
 func JsonResponse(w http.ResponseWriter, status int, data any) error {
 	type envelope struct {
-		Data any `json:"data"`
+		Data any `utils:"data"`
 	}
 
 	return WriteJSON(w, status, envelope{Data: data})

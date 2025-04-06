@@ -41,9 +41,8 @@ func main() {
 
 	// send start signal to manager
 	err := appWorker.sendStartSignal()
-	err = appWorker.sendStopSignal()
 	if err != nil {
-		appWorker.logger.Error("error sending stop signal to manager",
+		appWorker.logger.Error("error sending start signal to manager",
 			zap.Error(err), zap.Int64("worker_id", appWorker.id))
 		return
 	}
@@ -86,7 +85,7 @@ func (w *worker) setup() {
 	}
 
 	zapLogger := logger.InitLogger("../logs/worker_" + strconv.FormatInt(w.id, 10) + ".log")
-	typeMap, err := model.ParseFileTypesConfig("../common/file_types_config.json")
+	typeMap, err := model.ParseFileTypesConfig("../common/file_types_config.utils")
 	if err != nil {
 		zapLogger.Panic("Type map panic", zap.Error(err))
 		return
@@ -109,9 +108,7 @@ func (w *worker) setup() {
 
 // sendStopSignal sends a stop signal to the manager when the worker finishes its task
 func (w *worker) sendStopSignal() error {
-	payload := map[string]any{
-		"worker_id": w.id,
-	}
+	payload := model.StopSignal{WorkerId: w.id}
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
 		return err
@@ -135,9 +132,7 @@ func (w *worker) sendStopSignal() error {
 
 // sendStartSignal notifies the manager that the worker has started
 func (w *worker) sendStartSignal() error {
-	payload := map[string]any{
-		"worker_id": w.id,
-	}
+	payload := model.StartSignal{WorkerId: w.id}
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
 		return err

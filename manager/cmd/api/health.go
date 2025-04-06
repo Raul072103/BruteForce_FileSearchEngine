@@ -1,7 +1,7 @@
 package main
 
 import (
-	"BruteForce_SearchEnginer/common/json"
+	"BruteForce_SearchEnginer/common/utils"
 	"log"
 	"net/http"
 )
@@ -12,8 +12,8 @@ func (app *application) healthCheckHandler(w http.ResponseWriter, r *http.Reques
 		"version": version,
 	}
 
-	if err := json.WriteJSON(w, http.StatusOK, data); err != nil {
-		err := json.WriteJSONError(w, http.StatusInternalServerError, err.Error())
+	if err := utils.WriteJSON(w, http.StatusOK, data); err != nil {
+		err := utils.WriteJSONError(w, http.StatusInternalServerError, err.Error())
 		if err != nil {
 			log.Println("Failed writing to JSON error")
 		}

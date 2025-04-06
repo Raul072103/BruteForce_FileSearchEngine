@@ -47,6 +47,8 @@ func (app *application) mount() *chi.Mux {
 
 		r.Post("/directory-pool", app.updateDirectoryPoolHandler)
 		r.Get("/directory-pool", app.getDirectoryPoolHandler)
+		r.Get("/directory-pool-all", app.getAllDirectoryPoolHandler)
+
 		r.Post("/result-pool", app.updateResultPoolHandler)
 		r.Get("/result-pool", app.getResultPoolHandler)
 	})

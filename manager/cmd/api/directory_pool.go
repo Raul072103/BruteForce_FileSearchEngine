@@ -36,3 +36,12 @@ func (app *application) getDirectoryPoolHandler(w http.ResponseWriter, r *http.R
 		return
 	}
 }
+
+func (app *application) getAllDirectoryPoolHandler(w http.ResponseWriter, r *http.Request) {
+	directories := app.directoryPool.GetAllDirectories()
+	err := utils.WriteJSON(w, http.StatusOK, directories)
+	if err != nil {
+		app.logger.Error("error sending directory to worker", zap.Error(err))
+		return
+	}
+}

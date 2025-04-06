@@ -1,0 +1,7 @@
+{"level":"INFO","ts":"2025-04-06T21:35:57.751+0300","caller":"worker_manager/worker_manager.go:57","msg":"worker started","worker_id":631125940816555325,"time_registered":"2025-04-06T21:35:57.751+0300"}
+{"level":"INFO","ts":"2025-04-06T21:38:46.888+0300","caller":"worker_manager/worker_manager.go:57","msg":"worker started","worker_id":6346861896902743445,"time_registered":"2025-04-06T21:38:46.888+0300"}
+{"level":"INFO","ts":"2025-04-06T21:38:46.890+0300","caller":"worker_manager/worker_manager.go:76","msg":"worker ended","worker_id":6346861896902743445,"time_unregistered":"2025-04-06T21:38:46.890+0300"}
+{"level":"INFO","ts":"2025-04-06T21:42:31.036+0300","caller":"worker_manager/worker_manager.go:57","msg":"worker started","worker_id":4276212026002089171,"time_registered":"2025-04-06T21:42:31.036+0300"}
+{"level":"INFO","ts":"2025-04-06T21:42:31.038+0300","caller":"worker_manager/worker_manager.go:76","msg":"worker ended","worker_id":4276212026002089171,"time_unregistered":"2025-04-06T21:42:31.038+0300"}
+{"level":"INFO","ts":"2025-04-06T21:44:48.365+0300","caller":"worker_manager/worker_manager.go:57","msg":"worker started","worker_id":4092267656956790408,"time_registered":"2025-04-06T21:44:48.365+0300"}
+{"level":"INFO","ts":"2025-04-06T21:44:48.638+0300","caller":"worker_manager/worker_manager.go:76","msg":"worker ended","worker_id":4092267656956790408,"time_unregistered":"2025-04-06T21:44:48.638+0300"}

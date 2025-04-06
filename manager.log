@@ -16,3 +16,9 @@
 {"level":"INFO","ts":"2025-04-06T21:23:03.557+0300","caller":"api/api.go:95","msg":"server has stopped","addr":":8080"}
 {"level":"FATAL","ts":"2025-04-06T21:23:03.557+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
 {"level":"INFO","ts":"2025-04-06T21:23:06.744+0300","caller":"api/api.go:83","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T21:28:53.873+0300","caller":"api/api.go:75","msg":"signal caught","signal":"interrupt"}
+{"level":"FATAL","ts":"2025-04-06T21:28:58.874+0300","caller":"api/main.go:41","msg":"server error","error":"context deadline exceeded","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T21:29:06.888+0300","caller":"api/api.go:83","msg":"Server has started","addr":":8080"}
+{"level":"WARN","ts":"2025-04-06T21:29:20.260+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
+{"level":"WARN","ts":"2025-04-06T21:35:57.751+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
+{"level":"WARN","ts":"2025-04-06T21:37:14.986+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}

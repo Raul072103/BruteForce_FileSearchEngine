@@ -39,6 +39,18 @@ func (pool *DirectoryPool) PopDirectory() (model.DirectoryResponse, bool) {
 	return dir, true
 }
 
+// GetAllDirectories returns all the directories in the pool
+func (pool *DirectoryPool) GetAllDirectories() []model.DirectoryResponse {
+	pool.mu.Lock()
+	defer pool.mu.Unlock()
+
+	if len(pool.directories) == 0 {
+		return nil
+	}
+
+	return pool.directories
+}
+
 // Length returns the number of directories in the pool
 func (pool *DirectoryPool) Length() int64 {
 	pool.mu.Lock()

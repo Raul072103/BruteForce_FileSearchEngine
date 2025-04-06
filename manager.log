@@ -12,3 +12,6 @@
 {"level":"FATAL","ts":"2025-04-06T21:12:51.121+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
 {"level":"INFO","ts":"2025-04-06T21:12:53.143+0300","caller":"api/api.go:83","msg":"Server has started","addr":":8080"}
 {"level":"WARN","ts":"2025-04-06T21:13:10.212+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
+{"level":"INFO","ts":"2025-04-06T21:23:03.557+0300","caller":"api/api.go:75","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T21:23:03.557+0300","caller":"api/api.go:95","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T21:23:03.557+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}

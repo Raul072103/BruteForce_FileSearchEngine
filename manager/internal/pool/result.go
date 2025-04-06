@@ -38,6 +38,18 @@ func (pool *ResultPool) PopResult() (model.FileSearchResponse, bool) {
 	return result, true
 }
 
+// GetAllResults returns all the results in the pool
+func (pool *ResultPool) GetAllResults() []model.FileSearchResponse {
+	pool.mu.Lock()
+	defer pool.mu.Unlock()
+
+	if len(pool.results) == 0 {
+		return nil
+	}
+
+	return pool.results
+}
+
 // Length returns the number of results in the pool
 func (pool *ResultPool) Length() int64 {
 	pool.mu.Lock()

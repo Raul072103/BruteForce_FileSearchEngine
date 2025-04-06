@@ -40,6 +40,15 @@ func (app *application) mount() *chi.Mux {
 
 		// Search endpoint
 		r.Get("/search", app.searchHandler)
+
+		// Worker endpoints
+		r.Post("/start", app.startHandler)
+		r.Post("/stop", app.stopHandler)
+
+		r.Post("/directory-pool", app.updateDirectoryPoolHandler)
+		r.Get("/directory-pool", app.getDirectoryPoolHandler)
+		r.Post("/result-pool", app.updateResultPoolHandler)
+		r.Get("/result-pool", app.getResultPoolHandler)
 	})
 
 	return mux

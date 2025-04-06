@@ -22,3 +22,35 @@
 {"level":"WARN","ts":"2025-04-06T21:29:20.260+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
 {"level":"WARN","ts":"2025-04-06T21:35:57.751+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
 {"level":"WARN","ts":"2025-04-06T21:37:14.986+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
+{"level":"INFO","ts":"2025-04-06T21:51:51.872+0300","caller":"api/api.go:75","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T21:51:51.872+0300","caller":"api/api.go:95","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T21:51:51.872+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T21:51:54.675+0300","caller":"api/api.go:85","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T21:56:30.969+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T21:56:30.969+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T21:56:30.969+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T21:56:33.444+0300","caller":"api/api.go:85","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T21:58:46.357+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T21:58:49.044+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T21:58:49.044+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T21:58:52.125+0300","caller":"api/api.go:85","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T22:00:32.022+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T22:00:32.022+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T22:00:32.022+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T22:00:35.277+0300","caller":"api/api.go:85","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T22:02:16.774+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T22:02:16.775+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T22:02:16.775+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T22:02:19.548+0300","caller":"api/api.go:85","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T22:04:50.424+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T22:04:50.424+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T22:04:50.424+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T22:04:56.592+0300","caller":"api/api.go:85","msg":"Server has started","addr":":8080"}
+{"level":"WARN","ts":"2025-04-06T22:05:09.132+0300","caller":"api/errors.go:20","msg":"not found response","method":"GET","path":"/v1/directory-pool","error":"no directory is in the pool"}
+{"level":"INFO","ts":"2025-04-06T22:07:18.186+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T22:07:18.186+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T22:07:18.186+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}
+{"level":"INFO","ts":"2025-04-06T22:07:20.561+0300","caller":"api/api.go:85","msg":"Server has started","addr":":8080"}
+{"level":"INFO","ts":"2025-04-06T22:10:30.312+0300","caller":"api/api.go:77","msg":"signal caught","signal":"interrupt"}
+{"level":"INFO","ts":"2025-04-06T22:10:30.312+0300","caller":"api/api.go:97","msg":"server has stopped","addr":":8080"}
+{"level":"FATAL","ts":"2025-04-06T22:10:30.312+0300","caller":"api/main.go:41","msg":"server error","stacktrace":"main.main\n\tC:/Users/raula/Desktop/facultate/anul 3 sem 1/Software Engineering/Golang/BruteForce_SearchEnginer/manager/cmd/api/main.go:41\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:272"}

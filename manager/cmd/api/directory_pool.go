@@ -26,7 +26,10 @@ func (app *application) updateDirectoryPoolHandler(w http.ResponseWriter, r *htt
 func (app *application) getDirectoryPoolHandler(w http.ResponseWriter, r *http.Request) {
 	dir, dirExists := app.directoryPool.PopDirectory()
 	if !dirExists {
-		app.badRequestResponse(w, r, ErrNoDirectoryInPool)
+		err := utils.JsonResponse(w, http.StatusNoContent, dir)
+		if err != nil {
+			app.logger.Error("error sending ok response when empty directory pool", zap.Error(err))
+		}
 		return
 	}
 

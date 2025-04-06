@@ -10,6 +10,13 @@ type DirectoryPool struct {
 	directories []model.DirectoryResponse
 }
 
+func NewDirectoryPool() *DirectoryPool {
+	return &DirectoryPool{
+		mu:          sync.Mutex{},
+		directories: make([]model.DirectoryResponse, 0),
+	}
+}
+
 // AddDirectory adds a new directory to the pool
 func (pool *DirectoryPool) AddDirectory(directory model.DirectoryResponse) {
 	pool.mu.Lock()

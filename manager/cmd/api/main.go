@@ -57,8 +57,8 @@ func main() {
 func setup() *application {
 	var app application
 
-	dirPool := pool.DirectoryPool{}
-	resultPool := pool.ResultPool{}
+	dirPool := pool.NewDirectoryPool()
+	resultPool := pool.NewResultPool()
 
 	appLogger := logger.InitLogger("./../../manager.log")
 	workerManagerLogger := logger.InitLogger("./../../worker_manger.log")
@@ -70,8 +70,8 @@ func setup() *application {
 		apiURL: "localhost:8080",
 	}
 
-	app.directoryPool = &dirPool
-	app.resultPool = &resultPool
+	app.directoryPool = dirPool
+	app.resultPool = resultPool
 	app.logger = appLogger
 	app.config = config
 	app.workerManager = workerManager

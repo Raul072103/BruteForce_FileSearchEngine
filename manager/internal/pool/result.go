@@ -10,6 +10,13 @@ type ResultPool struct {
 	results []model.FileSearchResponse
 }
 
+func NewResultPool() *ResultPool {
+	return &ResultPool{
+		mu:      sync.Mutex{},
+		results: make([]model.FileSearchResponse, 0),
+	}
+}
+
 // AddResult adds a new search result to the pool
 func (pool *ResultPool) AddResult(result model.FileSearchResponse) {
 	pool.mu.Lock()

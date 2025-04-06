@@ -99,7 +99,7 @@ func (c *crawler) crawl(ctx context.Context, path string, request model.SearchRe
 					go func() {
 						var fileSearchResponse model.FileSearchResponse
 
-						if c.typeMap.GetTypeByExtension(fileMetadata.Extension) == ".txt" {
+						if c.typeMap.GetTypeByExtension(fileMetadata.Extension) == "txt" {
 							textContent := string(fileMetadata.Content)
 							preview := textContent[:min(len(textContent), 200)]
 

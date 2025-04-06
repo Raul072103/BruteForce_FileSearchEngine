@@ -31,13 +31,15 @@ func (fr *fileRepo) Read(path string) (*model.FileMetadata, error) {
 		return file, err
 	}
 
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
+	if file.Extension != "" {
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return nil, err
+		}
 
-	if fr.typeMap.GetTypeByExtension(file.Extension) == "txt" {
-		file.Content = data
+		if fr.typeMap.GetTypeByExtension(file.Extension) == "txt" {
+			file.Content = data
+		}
 	}
 
 	return file, nil

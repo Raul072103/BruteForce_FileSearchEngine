@@ -26,7 +26,7 @@ func (r *requestMatcher) MatchFile(fileMetadata *model.FileMetadata, request mod
 		wordSearchRequest = false
 	}
 
-	if r.typeMap.GetTypeByExtension(fileMetadata.Extension) == ".txt" {
+	if r.typeMap.GetTypeByExtension(fileMetadata.Extension) == "txt" {
 		fileTxtType = true
 	} else {
 		fileTxtType = false

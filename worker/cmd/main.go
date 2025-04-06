@@ -53,6 +53,7 @@ func main() {
 		appWorker.logger.Panic("Failed to request directory pool",
 			zap.Error(err),
 			zap.Int64("worker_id", appWorker.id))
+		return
 	}
 
 	// start crawler
@@ -77,7 +78,7 @@ func main() {
 func (w *worker) setup() {
 	w.id = rand.Int64()
 	w.config = workerConfig{
-		managerURL:            "http://127.0.0.1",
+		managerURL:            "http://127.0.0.1:8080/v1",
 		workerStopEndpoint:    "/stop",
 		workerStartEndpoint:   "/start",
 		directoryPoolEndpoint: "/directory-pool",
@@ -85,7 +86,7 @@ func (w *worker) setup() {
 	}
 
 	zapLogger := logger.InitLogger("./../logs/worker_" + strconv.FormatInt(w.id, 10) + ".log")
-	typeMap, err := model.ParseFileTypesConfig("./../common/file_types_config.utils")
+	typeMap, err := model.ParseFileTypesConfig("./../common/file_types_config.json")
 	if err != nil {
 		zapLogger.Panic("Type map panic", zap.Error(err))
 		return

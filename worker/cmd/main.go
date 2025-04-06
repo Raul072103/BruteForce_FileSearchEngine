@@ -84,8 +84,8 @@ func (w *worker) setup() {
 		resultPoolEndpoint:    "/results-pool",
 	}
 
-	zapLogger := logger.InitLogger("../logs/worker_" + strconv.FormatInt(w.id, 10) + ".log")
-	typeMap, err := model.ParseFileTypesConfig("../common/file_types_config.utils")
+	zapLogger := logger.InitLogger("./../logs/worker_" + strconv.FormatInt(w.id, 10) + ".log")
+	typeMap, err := model.ParseFileTypesConfig("./../common/file_types_config.utils")
 	if err != nil {
 		zapLogger.Panic("Type map panic", zap.Error(err))
 		return

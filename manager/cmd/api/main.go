@@ -60,8 +60,8 @@ func setup() *application {
 	dirPool := pool.NewDirectoryPool()
 	resultPool := pool.NewResultPool()
 
-	appLogger := logger.InitLogger("./../../manager.log")
-	workerManagerLogger := logger.InitLogger("./../../worker_manger.log")
+	appLogger := logger.InitLogger("./../manager.log")
+	workerManagerLogger := logger.InitLogger("./../worker_manger.log")
 
 	workerManager := worker_manager.New(workerManagerLogger)
 

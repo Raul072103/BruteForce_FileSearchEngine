@@ -3,9 +3,14 @@ package main
 import (
 	"BruteForce_SearchEnginer/common/model"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
+)
+
+var (
+	ErrEmptyDirectoryPool = errors.New("empty directory pool")
 )
 
 // requestDirectoryPool queries the directory pool endpoint and returns the path if successful
@@ -21,7 +26,9 @@ func (w *worker) requestDirectoryPool() (model.DirectoryResponse, error) {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode == http.StatusNoContent {
+		return dirResp, ErrEmptyDirectoryPool
+	} else if resp.StatusCode != http.StatusOK {
 		return dirResp, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 

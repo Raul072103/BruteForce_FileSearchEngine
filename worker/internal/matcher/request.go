@@ -45,7 +45,7 @@ func (r *requestMatcher) MatchFile(fileMetadata *model.FileMetadata, request mod
 	}
 
 	// name search
-	if request.Name == "" {
+	if request.Name != "" {
 		if strings.HasPrefix(fileMetadata.Name, request.Name) == false {
 			return false
 		}
@@ -53,7 +53,7 @@ func (r *requestMatcher) MatchFile(fileMetadata *model.FileMetadata, request mod
 
 	// words search
 	if wordSearchRequest {
-		words := strings.Split(string(fileMetadata.Content), "")
+		words := strings.Split(string(fileMetadata.Content), " ")
 
 		var matchedWords = 0
 

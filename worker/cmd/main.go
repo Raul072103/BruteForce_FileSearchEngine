@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"go.uber.org/zap"
 	"math/rand/v2"
@@ -50,6 +51,11 @@ func main() {
 	// get file search request from directory pool
 	dirResponse, err := appWorker.requestDirectoryPool()
 	if err != nil {
+		if errors.Is(err, ErrEmptyDirectoryPool) {
+			appWorker.stopWorker()
+			return
+		}
+
 		appWorker.logger.Panic("Failed to request directory pool",
 			zap.Error(err),
 			zap.Int64("worker_id", appWorker.id))
@@ -63,16 +69,21 @@ func main() {
 	searchRequest := model.ConvertNetworkSearchRequest(dirResponse.SearchRequest)
 	appWorker.crawler.Run(ctx, dirResponse.Path, searchRequest)
 
+	// stop worker
+	appWorker.stopWorker()
+}
+
+func (w *worker) stopWorker() {
 	// send stop signal to the manager
-	err = appWorker.sendStopSignal()
+	err := w.sendStopSignal()
 	if err != nil {
-		appWorker.logger.Error("error sending stop signal to manager",
-			zap.Error(err), zap.Int64("worker_id", appWorker.id))
+		w.logger.Error("error sending stop signal to manager",
+			zap.Error(err), zap.Int64("worker_id", w.id))
 		return
 	}
 
 	// stop
-	appWorker.logger.Info("worker finished", zap.Int64("worker_id", appWorker.id))
+	w.logger.Info("worker finished", zap.Int64("worker_id", w.id))
 }
 
 func (w *worker) setup() {
@@ -82,7 +93,7 @@ func (w *worker) setup() {
 		workerStopEndpoint:    "/stop",
 		workerStartEndpoint:   "/start",
 		directoryPoolEndpoint: "/directory-pool",
-		resultPoolEndpoint:    "/results-pool",
+		resultPoolEndpoint:    "/result-pool",
 	}
 
 	zapLogger := logger.InitLogger("./../logs/worker_" + strconv.FormatInt(w.id, 10) + ".log")

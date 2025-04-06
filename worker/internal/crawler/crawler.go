@@ -96,26 +96,28 @@ func (c *crawler) crawl(ctx context.Context, path string, request model.SearchRe
 			} else {
 				matchesRequest := c.requestMatcher.MatchFile(fileMetadata, request)
 				if matchesRequest {
-					go func() {
-						var fileSearchResponse model.FileSearchResponse
+					//go func() {
+					var fileSearchResponse model.FileSearchResponse
 
-						if c.typeMap.GetTypeByExtension(fileMetadata.Extension) == "txt" {
-							textContent := string(fileMetadata.Content)
-							preview := textContent[:min(len(textContent), 200)]
+					if c.typeMap.GetTypeByExtension(fileMetadata.Extension) == "txt" {
+						textContent := string(fileMetadata.Content)
+						preview := textContent[:min(len(textContent), 200)]
 
-							fileSearchResponse = model.ConvertToResponse(fileMetadata, preview)
-						} else {
-							fileSearchResponse = model.ConvertToResponse(fileMetadata, "")
-						}
+						fileSearchResponse = model.ConvertToResponse(fileMetadata, preview)
+					} else {
+						fileSearchResponse = model.ConvertToResponse(fileMetadata, "")
+					}
 
-						err := c.sendFileToResultsPool(fileSearchResponse)
-						if err != nil {
-							c.logger.Error(
-								"error sending result to the result pool",
-								zap.Error(err),
-								zap.Int64("worker_id", c.id))
-						}
-					}()
+					err := c.sendFileToResultsPool(fileSearchResponse)
+					if err != nil {
+						c.logger.Error(
+							"error sending result to the result pool",
+							zap.Error(err),
+							zap.Int64("worker_id", c.id))
+					}
+					//}()
+				} else {
+					fmt.Println("No match for file: " + fileMetadata.Name)
 				}
 			}
 
@@ -123,17 +125,17 @@ func (c *crawler) crawl(ctx context.Context, path string, request model.SearchRe
 
 		// Send every directory path back to the directories pool, besides the last one
 		for i, dir := range directories {
-			if i < len(entries)-1 {
-				go func() {
-					directoryNetworkResponse := model.DirectoryResponse{
-						Path:          dir,
-						SearchRequest: model.ConvertSearchRequest(request),
-					}
-					err := c.sendDirectoryToPool(directoryNetworkResponse)
-					if err != nil {
-						c.logger.Error("Error sending directory to directory pool", zap.Error(err), zap.Int64("worker_id", c.id))
-					}
-				}()
+			if i < len(directories)-1 {
+				//go func() {
+				directoryNetworkResponse := model.DirectoryResponse{
+					Path:          dir,
+					SearchRequest: model.ConvertSearchRequest(request),
+				}
+				err := c.sendDirectoryToPool(directoryNetworkResponse)
+				if err != nil {
+					c.logger.Error("Error sending directory to directory pool", zap.Error(err), zap.Int64("worker_id", c.id))
+				}
+				//}()
 			} else {
 				// go further the last one
 				c.crawl(ctx, dir, request)

@@ -80,3 +80,10 @@ func (manager *WorkerManager) RemoveWorker(id int64) error {
 
 	return nil
 }
+
+func (manager *WorkerManager) NoOfWorkers() int {
+	manager.mutex.Lock()
+	defer manager.mutex.Unlock()
+
+	return len(manager.activeWorkers)
+}

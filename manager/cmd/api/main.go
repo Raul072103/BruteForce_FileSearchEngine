@@ -3,6 +3,7 @@ package main
 import (
 	"BruteForce_SearchEnginer/common/logger"
 	"BruteForce_SearchEnginer/manager/internal/pool"
+	"BruteForce_SearchEnginer/manager/internal/process_manager"
 	"BruteForce_SearchEnginer/manager/internal/worker_manager"
 	"expvar"
 	"go.uber.org/zap"
@@ -14,11 +15,12 @@ const (
 )
 
 type application struct {
-	directoryPool *pool.DirectoryPool
-	resultPool    *pool.ResultPool
-	logger        *zap.Logger
-	workerManager *worker_manager.WorkerManager
-	config        config
+	directoryPool  *pool.DirectoryPool
+	resultPool     *pool.ResultPool
+	logger         *zap.Logger
+	workerManager  *worker_manager.WorkerManager
+	processManager *process_manager.ProcessManager
+	config         config
 }
 
 type config struct {
@@ -38,7 +40,6 @@ func main() {
 	app := setup()
 
 	mux := app.mount()
-	app.logger.Fatal("server error", zap.Error(app.run(mux)))
 
 	err := app.run(mux)
 	if err != nil {
@@ -46,6 +47,7 @@ func main() {
 	}
 
 	// TODO() create the process of creating other workers
+
 }
 
 func setup() *application {
@@ -56,8 +58,10 @@ func setup() *application {
 
 	appLogger := logger.InitLogger("./../manager.log")
 	workerManagerLogger := logger.InitLogger("./../worker_manger.log")
+	processManagerLogger := logger.InitLogger("./../process_manager.log")
 
 	workerManager := worker_manager.New(workerManagerLogger)
+	processManager := process_manager.New(workerManager, dirPool, resultPool, processManagerLogger)
 
 	config := config{
 		addr:   ":8080",
@@ -69,6 +73,7 @@ func setup() *application {
 	app.logger = appLogger
 	app.config = config
 	app.workerManager = workerManager
+	app.processManager = processManager
 
 	return &app
 }

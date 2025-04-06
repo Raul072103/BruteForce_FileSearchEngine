@@ -66,7 +66,7 @@ func (app *application) run(mux *chi.Mux) error {
 	}
 
 	// graceful shutdown
-	shutdown := make(chan error)
+	shutdown := make(chan error, 1)
 
 	go func() {
 		quit := make(chan os.Signal, 1)
@@ -82,14 +82,27 @@ func (app *application) run(mux *chi.Mux) error {
 		shutdown <- srv.Shutdown(ctx)
 	}()
 
+	// start server
 	app.logger.Info("Server has started", zap.String("addr", app.config.addr))
 
-	err := srv.ListenAndServe()
-	if !errors.Is(err, http.ErrServerClosed) {
-		return err
-	}
+	go func() {
+		err := srv.ListenAndServe()
+		if !errors.Is(err, http.ErrServerClosed) {
+			app.logger.Error("error starting server", zap.Error(err))
+			shutdown <- err
+		}
+	}()
 
-	err = <-shutdown
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// start process manager
+	go func() {
+		app.logger.Info("Process manager started")
+		app.processManager.Run(ctx)
+	}()
+
+	err := <-shutdown
 	if err != nil {
 		return err
 	}
